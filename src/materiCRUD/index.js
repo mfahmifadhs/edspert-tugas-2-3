@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import CourseConfirmDeleteModal from "./components/courseConfirmDeleteModal";
 import CourseCreateModal from "./components/courseCreateModal";
+import CourseEditModal from "./components/courseEditModal";
 import courseService from "./utils/service";
 
 const CrudPage = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [courses, setCourses] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState({});
+
   const toggleCreateModal = () => {
     setShowCreateModal(!showCreateModal);
   };
@@ -20,6 +26,39 @@ const CrudPage = () => {
     const result = courseService.getAllCourse();
     setCourses(result.data);
     console.log("res", courses);
+  };
+
+  const onOpenEdit = (course) => {
+    setSelectedCourse(course);
+    setShowEditModal(true);
+  };
+  const closeEditModal = () => {
+    setSelectedCourse({});
+    setShowEditModal(false);
+  };
+
+  const handleEditCourse = (payload) => {
+    const { id, ...otherData } = payload;
+    courseService.updateCourse(id, otherData);
+
+    closeEditModal();
+    fetchCourses();
+  };
+
+  const openDeleteModal = (course) => {
+    setSelectedCourse(course);
+    setShowDeleteModal(true);
+  };
+  const closeDeleteModal = () => {
+    setSelectedCourse({});
+    setShowDeleteModal(false);
+  };
+
+  const handleDeleteCourse = () => {
+    const { id } = selectedCourse;
+    courseService.deleteCourse(id);
+    fetchCourses();
+    closeDeleteModal();
   };
 
   useEffect(() => {
@@ -59,7 +98,20 @@ const CrudPage = () => {
                       <td>{index + 1}</td>
                       <td>{item.title}</td>
                       <td>{item.description}</td>
-                      <td>Aksi</td>
+                      <td>
+                        <Button
+                          onClick={() => onOpenEdit(item)}
+                          variant={"warning"}
+                        >
+                          Edit
+                        </Button>{" "}
+                        <Button
+                          onClick={() => openDeleteModal(item)}
+                          variant={"danger"}
+                        >
+                          Delete
+                        </Button>
+                      </td>
                     </tr>
                   );
                 })}
@@ -72,6 +124,17 @@ const CrudPage = () => {
         show={showCreateModal}
         handleSubmit={handleAddCourse}
         handleClose={toggleCreateModal}
+      />
+      <CourseEditModal
+        show={showEditModal}
+        handleClose={closeEditModal}
+        handleSubmit={handleEditCourse}
+        data={selectedCourse}
+      />
+      <CourseConfirmDeleteModal
+        show={showDeleteModal}
+        handleClose={closeDeleteModal}
+        onAgree={handleDeleteCourse}
       />
     </>
   );
