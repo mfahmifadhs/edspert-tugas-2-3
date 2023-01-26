@@ -1,0 +1,21 @@
+.container {
+  padding: 0 120px;
+  background-color: #152a46;
+}
+
+.content {
+  display: flex;
+  gap: 24px;
+}
+
+.content h1 {
+  color: #fff;
+  margin-top: 65px;
+  margin-left: 65px;
+}
+
+.content p {
+  color: #fff;
+  margin-top: 65px;
+  margin-left: 65px;
+}

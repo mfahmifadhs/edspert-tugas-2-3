@@ -1,9 +1,10 @@
 import { Image } from "react-bootstrap";
+import styles from "./HomeBanner.module.css";
 
 const HomeBanner = () => {
   return (
-    <div>
-      <div>
+    <div className={styles.container}>
+      <div className={styles.content}>
         <div>
           <h1>Selamat datang</h1>
           <p>
