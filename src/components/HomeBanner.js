@@ -6,7 +6,7 @@ const HomeBanner = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <div>
-          <h1>Selamat datang</h1>
+          <h1>Welcome</h1>
           <p>
             Minim dolor eiusmod nostrud irure magna ex. Commodo consequat culpa
             et tempor esse. Irure do tempor laboris ex velit nulla minim. Ipsum
