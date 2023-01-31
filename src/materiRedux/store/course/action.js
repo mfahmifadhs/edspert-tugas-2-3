@@ -9,3 +9,15 @@ export const getAll = createAsyncThunk("feat/getAllCourses", async () => {
     throw error?.response?.data;
   }
 });
+
+export const getDetail = createAsyncThunk(
+  "feat/getCourse",
+  async (productId) => {
+    try {
+      const response = await httpService.get(`/product/${productId}`);
+      return response.data;
+    } catch (error) {
+      throw error?.response?.data;
+    }
+  }
+);

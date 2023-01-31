@@ -30,6 +30,17 @@ export const courseSlice = createSlice({
       .addCase(courseAct.getAll.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error;
+      })
+      .addCase(courseAct.getDetail.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(courseAct.getDetail.fulfilled, (state, action) => {
+        state.loading = false;
+        state.entity = action.payload;
+      })
+      .addCase(courseAct.getDetail.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error;
       }),
 });
 
