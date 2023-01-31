@@ -25,9 +25,17 @@ const getCourses = () => {
   return response;
 };
 
+const deleteCourse = (courseId) => {
+  const listCourse = storageManager.get();
+  const newList = listCourse.filter((item) => item.id !== courseId);
+
+  storageManager.set(newList);
+}
+
 const courseService = {
   addCourse,
   getAllCourse: getCourses,
+  deleteCourse,
 };
 
 export default courseService;

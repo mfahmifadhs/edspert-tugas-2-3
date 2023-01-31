@@ -5,6 +5,9 @@ import courseService from "./utils/service";
 
 const CrudPage = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [courses, setCourses] = useState([]);
   const toggleCreateModal = () => {
     setShowCreateModal(!showCreateModal);
@@ -21,6 +24,41 @@ const CrudPage = () => {
     setCourses(result.data);
     console.log("res", courses);
   };
+
+  const onOpenEdit = (course) => {
+    setSelectedCourse(course);
+    setShowEditModal(true);
+  }
+
+  const closeEditModal = () => {
+    setSelectedCourse({});
+    setShowEditModal(false);
+  }
+
+  const handleEditCourse = (payload) => {
+    const {id, ...otherData} = payload;
+    courseService.updateCourse(id, otherData);
+
+    closeEditModal();
+    fetchCourses();
+  }
+
+  const openDeleteModal = (course) => {
+    setSelectedCourse(course);
+    setShowDeleteModal(true);
+  }
+
+  const closeDeleteModal = () => {
+    setSelectedCourse({});
+    setShowDeleteModal(false);
+  }
+
+  const handleDeleteCourse = (payload) => {
+    const {id} = selectedCourse;
+    courseService.deleteCourse(id);
+    fetchCourses()
+    closeDeleteModal()
+  }
 
   useEffect(() => {
     fetchCourses();
@@ -59,7 +97,20 @@ const CrudPage = () => {
                       <td>{index + 1}</td>
                       <td>{item.title}</td>
                       <td>{item.description}</td>
-                      <td>Aksi</td>
+                      <td>
+                        <Button
+                          onClick={() => onOpenEdit(item)}
+                          variant={"warning"}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          onClick={() => openDeleteModal(item)}
+                          variant={"danger"}
+                        >
+                          Delete
+                        </Button>
+                      </td>
                     </tr>
                   );
                 })}
