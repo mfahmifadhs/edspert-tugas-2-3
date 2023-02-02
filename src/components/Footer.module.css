@@ -1,0 +1,26 @@
+.footer {
+   padding: 120px 0px;
+   background-color: #EFF4FA;
+   color: white;
+}
+
+.content {
+   display: flex;
+   gap: 24px;
+}
+
+.content h1 {
+   color: #fff;
+   margin-top: 65px;
+   margin-left: 65px;
+}
+
+.content p {
+   color: #fff;
+   margin-top: 155px;
+   margin-left: 65px;
+}
+
+.content img {
+   margin-left: 300px;
+}

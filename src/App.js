@@ -1,9 +1,9 @@
 import logo from "./logo.svg";
 import "./App.css";
-import CrudPage from "./materiCRUD";
+import Resources from "./resources";
 
 function App() {
-  return <CrudPage />;
+  return <Resources />;
 }
 
 export default App;

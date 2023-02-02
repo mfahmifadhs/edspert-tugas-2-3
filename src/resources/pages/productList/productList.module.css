@@ -1,0 +1,21 @@
+.container {
+   background-color: #EFF4FA;
+   padding: 72px;
+   display: flex;
+   gap: 24px;
+   flex-wrap: wrap; /* Agar tidak melebihi batas */
+}
+
+.card {
+   height: 100%;
+   border-radius: '25px'
+}
+
+.header {
+   background-color: #152A46;
+   color: white;
+}
+
+.header h6 {
+   margin-top: 10px;
+}

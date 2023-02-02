@@ -25,6 +25,24 @@ const getCourses = () => {
   return response;
 };
 
+// Payload adalah data yang akan diubah
+const updateCourse = (courseId, payload) => {
+  const listCourse = storageManager.get();
+  const updatedCourse = listCourse.map(item => {
+    if(item.id === courseId) {
+      return {
+        ...item,
+        ...payload
+      }
+    }
+    return item;
+  });
+  storageManager.set(updatedCourse);
+  return {
+    data: payload,
+  }
+};
+
 const deleteCourse = (courseId) => {
   const listCourse = storageManager.get();
   const newList = listCourse.filter((item) => item.id !== courseId);
@@ -35,6 +53,7 @@ const deleteCourse = (courseId) => {
 const courseService = {
   addCourse,
   getAllCourse: getCourses,
+  updateCourse,
   deleteCourse,
 };
 

@@ -20,3 +20,5 @@ const CourseConfirmDeleteModal = ({show, handleClose, onAgree}) => {
     </Modal>
    )
 }
+
+export default CourseConfirmDeleteModal;

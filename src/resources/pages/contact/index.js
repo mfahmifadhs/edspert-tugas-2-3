@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
-import CourseCreateModal from "./components/courseCreateModal";
-import courseService from "./utils/service";
+import CourseConfirmDeleteModal from "../../components/courseConfirmDeleteModal";
+import CourseCreateModal from "../../components/courseCreateModal";
+import CourseEditModal from "../../components/courseEditModal";
+import courseService from "../../utils/serviceContact";
 
-const CrudPage = () => {
+const ContactPage = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [courses, setCourses] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState(false);
+
   const toggleCreateModal = () => {
     setShowCreateModal(!showCreateModal);
   };
@@ -36,7 +39,7 @@ const CrudPage = () => {
   }
 
   const handleEditCourse = (payload) => {
-    const {id, ...otherData} = payload;
+    const {id, ...otherData} = payload; // Membuat variable id dan other
     courseService.updateCourse(id, otherData);
 
     closeEditModal();
@@ -103,7 +106,7 @@ const CrudPage = () => {
                           variant={"warning"}
                         >
                           Edit
-                        </Button>
+                        </Button>{" "}
                         <Button
                           onClick={() => openDeleteModal(item)}
                           variant={"danger"}
@@ -124,8 +127,19 @@ const CrudPage = () => {
         handleSubmit={handleAddCourse}
         handleClose={toggleCreateModal}
       />
+      <CourseEditModal 
+        show={showEditModal}
+        handleClose={closeEditModal}
+        handleSubmit={handleEditCourse}
+        data={selectedCourse}
+      />
+      <CourseConfirmDeleteModal 
+        show={showDeleteModal}
+        handleClose={closeDeleteModal}
+        onAgree={handleDeleteCourse}
+      />
     </>
   );
 };
 
-export default CrudPage;
+export default ContactPage;

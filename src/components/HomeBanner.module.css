@@ -1,0 +1,25 @@
+.container {
+   padding: 0 120px;
+   background-color: #152A46;
+}
+
+.content {
+   display: flex;
+   gap: 24px;
+}
+
+.title h1 {
+   color: #fff;
+   margin-top: 65px;
+   margin-left: 65px;
+}
+
+.content p {
+   color: #fff;
+   margin-top: 155px;
+   margin-left: 65px;
+}
+
+.content img {
+   margin-left: 300px;
+}
